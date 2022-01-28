@@ -1,6 +1,20 @@
+
+var searchBtn = document.getElementById('search-button') ;
+var searchFld = document.getElementById('search-field');
+
+searchFld.addEventListener('keypress', function(event){
+    // event.preventDefault();
+    if(event.key == 'Enter'){
+        searchBtn.click();
+    }
+})
+
+
 const getSong = () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/${searchText}`;
+    // toggleSpinner(true);
+    toggleSpinner();
     fetch(url)
         .then(res => res.json())
         .then(data => displaySong(data.data))
@@ -36,6 +50,8 @@ const displaySong = songs => {
         </div>
         `
         songContainer.appendChild(div);
+        // toggleSpinner(false);
+        toggleSpinner();
     });
 }
 
@@ -72,3 +88,18 @@ const displayLyrics = lyrics => {
     showLyrics.innerText = lyrics;
 
 }
+
+const toggleSpinner = (show) => {
+    const spinner = document.getElementById('display-spinner');
+    const songShow = document.getElementById('song-container');
+    spinner.classList.toggle('d-none');
+    songShow.classList.toggle('d-none');
+}
+
+//     if(show){
+//         spinner.classList.remove('d-none');
+//     }
+//     else{
+//         spinner.classList.add('d-none');
+//     }
+// }
